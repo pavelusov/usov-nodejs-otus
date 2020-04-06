@@ -1,4 +1,4 @@
-import { IFormatterProps } from "./interfaces";
+import { IFormatterProps } from './interfaces';
 
 export enum FormatterSymbols {
   PARENT = '└──',

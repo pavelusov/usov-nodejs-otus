@@ -1,5 +1,5 @@
-import { formatter } from "./formatter";
-import { INode, IElement } from "./interfaces";
+import { formatter } from './formatter';
+import { INode, IElement } from './interfaces';
 
 export { data } from './data';
 
