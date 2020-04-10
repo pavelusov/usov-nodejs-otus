@@ -1,6 +1,7 @@
-import { IElement, IWalkerOptions } from '../interfaces';
 import fs from 'fs';
 import path from 'path';
+
+import { IElement, IWalkerOptions } from '../interfaces';
 
 export const directoryWalker = ({
  searchPath,

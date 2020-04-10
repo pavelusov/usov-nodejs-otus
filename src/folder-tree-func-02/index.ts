@@ -4,7 +4,7 @@ import {
   formatter,
   directoryWalker,
   getRootElement
-} from "./utils";
+} from './utils';
 import { IElement } from './interfaces';
 
 export const directoryTreeView = (argv: string[]) => {
