@@ -48,9 +48,10 @@ npm start
 ```
 
 ## 2. CLI utility for working with a file system
-2.1 Написать утилиту tree для удобного показа структуры файлов директории. Утилита должна принимать на вход
-    обязательный аргумент - путь до директории для показа ее структуры. Также она должна понимать опцию глубину
-    показа --depth, -d с числом в качестве значения.
+2.1 To write a "tree" utility for comfortable display a directory structure. 
+    
+The utility must accept a mandatory input argument - the path to the directory to display its structure. 
+Also it must to understand an option of a display depth(--depth or -d). The option value is number. 
     
 ```
 tree Node.js -d 2
