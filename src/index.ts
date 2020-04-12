@@ -1,3 +1,4 @@
-import { data, showTree } from './tree-func-01';
+#!/usr/bin/env node
+import { directoryTreeView } from './folder-tree-func-02';
 
-showTree(data);
+directoryTreeView(process.argv);

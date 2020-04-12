@@ -1,8 +1,9 @@
 {
-  "name": "usov-nodejs-otus",
+  "name": "showtree",
   "version": "1.0.0",
   "description": "Course of Nodejs from Otus.ru",
-  "main": "src/index.js",
+  "main": "build/index.js",
+  "bin": {"showtree":  "build/index.js"},
   "scripts": {
     "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
