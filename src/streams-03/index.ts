@@ -1,11 +1,18 @@
 import path from 'path';
-import { fileGenerate, removeFile } from './helpers/fileGenerate';
+
+import {
+  getMaxSizeMemory,
+  fileGenerate,
+  removeFile
+} from './helpers';
 
 const filePath = path.join(__dirname, '.', 'numbers');
 
-async function main() {
+export default function main(argv: string[]) {
+
+  const maxSizeMemory = getMaxSizeMemory(argv);
+
   fileGenerate(filePath);
+  // TODO maxSizeMemory
   removeFile(filePath);
 }
-
-main();

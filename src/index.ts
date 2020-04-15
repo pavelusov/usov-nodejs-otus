@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import { directoryTreeView } from './folder-tree-func-02';
+import main from './streams-03';
 
-directoryTreeView(process.argv);
-
-import './streams-03';
+main(process.argv);
