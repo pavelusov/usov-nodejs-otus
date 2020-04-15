@@ -1,5 +1,5 @@
 {
-  "name": "showtree",
+  "name": "mergesort",
   "version": "1.0.0",
   "description": "Course of Nodejs from Otus.ru",
   "main": "build/index.js",

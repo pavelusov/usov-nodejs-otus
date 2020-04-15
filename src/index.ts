@@ -2,3 +2,5 @@
 import { directoryTreeView } from './folder-tree-func-02';
 
 directoryTreeView(process.argv);
+
+import './streams-03';
