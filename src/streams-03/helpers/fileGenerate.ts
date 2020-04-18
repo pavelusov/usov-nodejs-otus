@@ -1,10 +1,8 @@
 import fs from 'fs';
 
-function getFileSize(path: string): number {
+export function getFileSize(path: string): number {
   const stats = fs.statSync(path);
-  const fileSizeInBytes = stats.size;
-  const fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
-  return fileSizeInMegabytes;
+  return stats.size;
 }
 
 function getRandomInt(max: number): number {
@@ -14,15 +12,15 @@ function getRandomInt(max: number): number {
 function numberGenerate(path: string): number {
   for(let i = 0; i < 10000; i++) {
     const data = getRandomInt(100000);
-    fs.appendFileSync(path, `${data.toString()} `, { encoding: 'utf-8'});
+    fs.appendFileSync(path, `${data.toString()} `, { encoding: 'utf8'});
   }
 
-  return getFileSize(path);
+  return getFileSize(path); // KB
 }
 
-export function fileGenerate(path: string): void {
-  const MAX_FILE_SIZE_MB = 100;
-  let fileSize = 0;
+export function fileGenerate(path: string, size: number): void {
+  const MAX_FILE_SIZE_MB = size * 1000000;
+  let fileSize = 0; // KB
 
   fs.writeFileSync(path, `${ getRandomInt(100000)} `, { encoding: 'utf-8'});
   console.info('Generating numbers... ');

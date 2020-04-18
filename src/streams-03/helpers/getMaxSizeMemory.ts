@@ -1,4 +1,4 @@
-let MAX_SIZE_MEMORY = 50;
+let MAX_SIZE_MEMORY = 50 * 1000000;
 
 export const getMaxSizeMemory = (argv: string[]): number => {
   const [_, __, arg] = argv;
@@ -7,7 +7,7 @@ export const getMaxSizeMemory = (argv: string[]): number => {
     const value = Number(argValue);
 
     if (argName === '--max-old-space-size' && !isNaN(value)) {
-      return value;
+      return value * 1000000;
     }
   }
 

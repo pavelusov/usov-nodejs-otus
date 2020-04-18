@@ -1,3 +1,3 @@
 export { getMaxSizeMemory } from './getMaxSizeMemory';
-export { fileGenerate, removeFile } from './fileGenerate';
+export { fileGenerate, removeFile, getFileSize } from './fileGenerate';
 export { merge, sortMerge } from './sortMerge';
