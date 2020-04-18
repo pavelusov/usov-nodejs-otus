@@ -50,7 +50,40 @@ export default function main(argv: string[]) {
     }
   });
 
-  reader.on('end', reader.close);
+  reader.on('end', () => {
+    const sortedFileDirPath = path.join(__dirname, '.', 'sortedArrays');
+    let sortedFileNames = fs.readdirSync(sortedFileDirPath);
+    // Remove hidden files
+    sortedFileNames = sortedFileNames.filter(name => !(/^\./.test(name)));
+    let dataTemp: {[key:number]: number[]} = {};
+    let data: string;
+    sortedFileNames.forEach((nameFile, i) => {
+
+      const sortedFilePath = path.join(sortedFileDirPath, nameFile);
+      const reader = fs.createReadStream(sortedFilePath, { encoding: 'utf8' });
+      reader.on('data', (chunk) => {
+        reader.pause();
+        dataTemp[Number(i)] = chunk
+          .toString()
+          .split(',')
+          .map(strNumber => Number(strNumber));
+
+        // Last reader
+        if (i === sortedFileNames.length - 1) {
+          // for (let j = 0; j < dataTemp[0].length; j++) {
+          for (let j = 0; j < 10; j++) {
+            console.log('************************')
+            for (let t = 0; t <= i; t++) {
+              console.log('file: part', t + 1, '===', dataTemp[t][j]);
+            }
+          }
+
+        }
+      })
+    })
+
+  });
+
 }
 
 function createWriter(dirName: string, fileName: string, partFile: number): fs.WriteStream {
