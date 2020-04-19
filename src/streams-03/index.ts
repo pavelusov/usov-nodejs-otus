@@ -20,7 +20,7 @@ export default function main(argv: string[]) {
   const maxSizeMemory = getMaxSizeMemory(argv);
   fileGenerate(filePath, 1); // MB
 
-  const reader = fs.createReadStream(filePath, { encoding: 'utf8' });
+  const reader = fs.createReadStream(filePath, { encoding: 'utf8', autoClose: true });
   const temp: ITempData = {
     data: '',
     size: 0,
@@ -63,12 +63,9 @@ function fileMerge(pathDir: string) {
 
   // Remove hidden files
   names = names.filter(name => !(/^\./.test(name)));
-  if (names.length > SIDES) {
-    const leftFileName = path.join(pathDir, names[0]);
-    const rightFileName = path.join(pathDir, names[1]);
+  if (names.length >= SIDES) {
     let left: number[];
     let right: number[];
-
 
     for (let i = 0; i < SIDES; i++) {
       const fileName = path.join(pathDir, names[i]);
@@ -88,8 +85,8 @@ function fileMerge(pathDir: string) {
             .split(',')
             .map(stringNumber => Number(stringNumber));
 
-          const leftLength = typeof left.length === 'undefined' ? 0 : left.length;
-          const rightLength = typeof right.length === 'undefined' ? 0 : right.length;
+          const leftLength = left && typeof left.length !== 'undefined' ? left.length : 0;
+          const rightLength = right && typeof right.length !== 'undefined' ? right.length : 0;
           let l = 0;
           let r = 0;
 
@@ -116,16 +113,27 @@ function fileMerge(pathDir: string) {
             writer.write(writeValue(rightValue));
             r++;
           }
-
-          // Remove those files
-          fs.unlinkSync(leftFileName);
-          fs.unlinkSync(rightFileName);
-          writer.close();
-          fileMerge(pathDir);
         }
-      }))
+
+        reader.resume();
+      }));
+
+      reader.on('end', () => {
+        const fileName = path.join(pathDir, names[i]);
+        console.info('fileName ',fileName, '==', i);
+        // Remove those files
+        fs.unlinkSync(fileName);
+      });
+
+      reader.on('close', () => {
+        if(i === 1 || i === 0)writer.close();
+      });
     }
   }
+
+  writer.on('close', () => {
+    fileMerge(pathDir);
+  })
 }
 
 function writeValue(value: number): string {
@@ -151,11 +159,6 @@ function writePart(options: ITempData, reader: fs.ReadStream) {
   options.data = '';
   options.size = 0;
   reader.resume();
-}
-
-function createWriter(dirName: string, fileName: string, partFile: number): fs.WriteStream {
-  const writerPath = path.join(__dirname, dirName, fileName + partFile);
-  return fs.createWriteStream(writerPath);
 }
 
 function writeDataSync(dirName: string, fileName: string, partFile: number, data: any) {
