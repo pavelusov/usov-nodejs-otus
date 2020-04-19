@@ -90,3 +90,18 @@ Run with some path
 npm run build
 npm start -- /Users/User/Documents
 ```
+
+## 3. Streams of file system
+3.1 Run dev
+
+Source file size 100 MB
+Constraint 50 MB(generation very long time)
+
+For development the Source file size set up 1 MB
+Constraint is 500 KB
+
+0.5 === 500 KB
+
+```
+npm run dev -- --max-old-space-size=0.5
+```

@@ -18,6 +18,10 @@ interface ITempData {
 export default function main(argv: string[]) {
   const MEMORY_BUFFER_DIVIDER = 2;
   const maxSizeMemory = getMaxSizeMemory(argv);
+  /**
+   * FILE GENERATION 1 MB !!!
+   * CONSTRAINT IS 500 KB !!!
+   */
   fileGenerate(filePath, 1); // MB
 
   const reader = fs.createReadStream(filePath, { encoding: 'utf8', autoClose: true });
@@ -59,11 +63,11 @@ function fileMerge(pathDir: string) {
 
   if (matchedIndex) lastFileIndex = Number(matchedIndex[0]);
 
-  const writer = fs.createWriteStream(path.join(pathDir, `result${++lastFileIndex}`));
-
   // Remove hidden files
   names = names.filter(name => !(/^\./.test(name)));
   if (names.length >= SIDES) {
+
+    const writer = fs.createWriteStream(path.join(pathDir, `result${++lastFileIndex}`));
     let left: number[];
     let right: number[];
 
@@ -129,11 +133,10 @@ function fileMerge(pathDir: string) {
         if(i === 1 || i === 0)writer.close();
       });
     }
+    writer.on('close', () => {
+      fileMerge(pathDir);
+    })
   }
-
-  writer.on('close', () => {
-    fileMerge(pathDir);
-  })
 }
 
 function writeValue(value: number): string {
