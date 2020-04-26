@@ -3,7 +3,7 @@ import { IFormatterProps } from '../interfaces';
 export enum FormatterSymbols {
   PARENT = '└──',
   SPLIT = '│',
-  SPACE = '  ',
+  SPACE = ' ',
 }
 
 export const formatter = ({ depth, name, isLast }: IFormatterProps): string => {
