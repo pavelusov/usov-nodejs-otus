@@ -1,13 +1,16 @@
 {
-  "name": "mergesort",
+  "name": "showtree",
   "version": "1.0.0",
   "description": "Course of Nodejs from Otus.ru",
   "main": "build/index.js",
-  "bin": {"showtree":  "build/index.js"},
+  "bin": {
+    "showtree": "build/index.js"
+  },
   "scripts": {
     "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,9 +23,22 @@
   },
   "homepage": "https://github.com/pavelusov/usov-nodejs-otus#readme",
   "devDependencies": {
+    "@types/jest": "^25.2.1",
     "@types/node": "^13.11.0",
+    "jest": "^25.4.0",
     "nodemon": "^2.0.2",
+    "ts-jest": "^25.4.0",
     "ts-node": "^8.8.2",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "jest-config": "latest"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": ["ts", "tsx", "js"]
   }
 }
